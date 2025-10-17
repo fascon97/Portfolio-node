@@ -11,9 +11,11 @@
     "debug": "~2.6.9",
     "ejs": "^3.1.10",
     "express": "^4.21.2",
+    "express-ejs-layouts": "^2.5.1",
     "http-errors": "~1.6.3",
     "jquery": "^3.7.1",
     "morgan": "^1.10.1",
+    "nodemon": "^3.1.10",
     "typed.js": "^2.0.12"
   }
 }

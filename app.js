@@ -6,7 +6,6 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
 var aboutRouter = require('./routes/about');
 var servicesRouter = require('./routes/services');
@@ -14,12 +13,15 @@ var recommendationsRouter = require('./routes/recommendations');
 var portfolioRouter = require('./routes/portfolio');
 var contactRouter = require('./routes/contact');
 
+const expressLayouts = require('express-ejs-layouts');  // Uncommented for layouts
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(expressLayouts);  // Enable layouts middleware
+app.set('layout', 'layout');  // Default layout file: views/layout.ejs
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -52,6 +54,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
+  res.locals.status = res.statusCode;  // Added for use in error.ejs
   res.render('error');
 });
 

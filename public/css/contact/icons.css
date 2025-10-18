@@ -8,10 +8,10 @@
     border: 2px solid #d4d4d4;
     line-height: 60px;
     text-align: center;
+    text-decoration: none;  /* Fjerner understreking */
+    transition: color 0.3s ease;  /* Smooth overgang til hover-farge */
 }
-  
+
 .about a:hover {
     color: #ee8682;
-
-  
 }

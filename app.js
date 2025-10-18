@@ -1,39 +1,38 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var homeRouter = require('./routes/home');
-var aboutRouter = require('./routes/about');
-var servicesRouter = require('./routes/services');
-var recommendationsRouter = require('./routes/recommendations');
-var portfolioRouter = require('./routes/portfolio');
-var contactRouter = require('./routes/contact');
 
-const expressLayouts = require('express-ejs-layouts');  // Uncommented for layouts
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const homeRouter = require('./routes/home');
+const aboutRouter = require('./routes/about');
+const servicesRouter = require('./routes/services');
+const recommendationsRouter = require('./routes/recommendations');
+const portfolioRouter = require('./routes/portfolio');
+const contactRouter = require('./routes/contact');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(expressLayouts);  // Enable layouts middleware
-app.set('layout', 'layout');  // Default layout file: views/layout.ejs
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(__dirname + '/node_modules/bootstrap-icons'));
-app.use(express.static(__dirname + '/node_modules/jquery/dist/'));
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/typed.js/lib'));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
 app.use('/home', homeRouter);
 app.use('/about', aboutRouter);
 app.use('/services', servicesRouter);

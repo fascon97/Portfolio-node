@@ -1,18 +1,18 @@
+var indexRouter = require('./routes/index');
+var homeRouter = require('./routes/home');
+var aboutRouter = require('./routes/about');
+var servicesRouter = require('./routes/services');
+var recommendationsRouter = require('./routes/recommendations');
+var portfolioRouter = require('./routes/portfolio');
+var contactRouter = require('./routes/contact');
+var router = express.Router();
+var express = require('express');
+
 const createError = require('http-errors');
-const express = require('express');
 const path = require('path');
+const fs = require("fs")
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const homeRouter = require('./routes/home');
-const aboutRouter = require('./routes/about');
-const servicesRouter = require('./routes/services');
-const recommendationsRouter = require('./routes/recommendations');
-const portfolioRouter = require('./routes/portfolio');
-const contactRouter = require('./routes/contact');
 
 const app = express();
 
@@ -31,8 +31,6 @@ app.use(express.static(__dirname + '/node_modules/jquery/dist'));
 app.use(express.static(__dirname + '/node_modules/typed.js/lib'));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
 app.use('/home', homeRouter);
 app.use('/about', aboutRouter);
 app.use('/services', servicesRouter);
@@ -57,4 +55,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  let data = fs.readFileSync(path.resolve(__dirname, "../data/introductionArray.json"));
+  res.render('home', { array: JSON.parse(data)});
+});
+module.exports = router;
 module.exports = app;

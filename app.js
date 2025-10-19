@@ -1,3 +1,4 @@
+
 var indexRouter = require('./routes/index');
 var homeRouter = require('./routes/home');
 var aboutRouter = require('./routes/about');
@@ -5,15 +6,16 @@ var servicesRouter = require('./routes/services');
 var recommendationsRouter = require('./routes/recommendations');
 var portfolioRouter = require('./routes/portfolio');
 var contactRouter = require('./routes/contact');
-var router = express.Router();
+
 var express = require('express');
+var router = express.Router();
+
 
 const createError = require('http-errors');
 const path = require('path');
 const fs = require("fs")
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-
 const app = express();
 
 // view engine setup
@@ -38,6 +40,11 @@ app.use('/recommendations', recommendationsRouter);
 app.use('/portfolio', portfolioRouter);
 app.use('/contact', contactRouter);
 
+app.post('/', function(req, res) {
+  const data = fs.readFileSync(path.resolve(__dirname, "../data/introductionArray.json"));
+  res.render('home', { array: JSON.parse(data) });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -60,5 +67,4 @@ router.get('/', function(req, res, next) {
   let data = fs.readFileSync(path.resolve(__dirname, "../data/introductionArray.json"));
   res.render('home', { array: JSON.parse(data)});
 });
-module.exports = router;
 module.exports = app;
